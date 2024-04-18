@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "sourceMap": true,
+    "outDir": "dist",
+    "lib": ["esnext", "dom"],
+    "esModuleInterop": true,
+    "target": "es2021",
+    "jsx": "preserve",
+    "types": ["react/next", "react-dom/next"],
+    "moduleResolution": "node"
+  }
+}

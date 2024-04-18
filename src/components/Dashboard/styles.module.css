@@ -1,0 +1,41 @@
+/* Main title has large font */
+body {
+  font-family: 'Helvetica', sans-serif;
+  width: 60%; /* set the width of the body to 60% of the viewport width */
+  margin: 0 auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin: 10px 0; /* adjust as needed */
+}
+
+.logo {
+  width: 3vw; /* adjust as needed */
+  max-width: 100px; /* adjust as needed */
+  height: auto;
+  margin-right: 1vw; /* adjust as needed */
+  border-radius: 50%; /* makes the image circular */
+}
+
+.name {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+  /* margin-right: 10px; */
+}
+
+.name:disabled {
+  cursor: default;
+  color: gray;
+}
+
+.name:hover:not(:disabled) {
+  text-decoration: underline;
+}
