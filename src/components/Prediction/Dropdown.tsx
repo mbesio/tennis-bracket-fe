@@ -15,6 +15,18 @@ const Dropdown = ({ title, label, options, handleChange }) => {
       label,
     )
   }
+
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: '100%',
+      marginBottom: '5vh',
+      '@media(min-width: 1000px)': {
+        width: '20vw',
+      },
+    }),
+  }
+
   return (
     <Select
       options={transformedOptions}
@@ -22,6 +34,7 @@ const Dropdown = ({ title, label, options, handleChange }) => {
       onChange={handleSelectChange}
       isDisabled={options.length < 2}
       placeholder={title}
+      styles={customStyles}
     />
   )
 }

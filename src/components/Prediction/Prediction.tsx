@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import TennisBallIcon from '../../images/tennisball.png' // adjust the path as needed
 import Dropdown from './Dropdown'
 import {
   predictionFirstQuarterSemiFinalist,
@@ -10,6 +10,8 @@ import {
   predictionBottomHalfFinalist,
   predictionWinner,
 } from '../../constants/constants'
+
+import styles from './styles.module.css'
 
 // Add a use effect to call these from the backend
 const firstQuarterOptions = [
@@ -129,57 +131,91 @@ const Prediction = () => {
   return (
     <div>
       <h3>This will be the Prediciton component</h3>
-      <h4>Semifinals</h4>
-      <div>
-        <Dropdown
-          title={'Select First Quarter Semifinalist'}
-          label={predictionFirstQuarterSemiFinalist}
-          options={firstQuarterOptions}
-          handleChange={handleChange}
-        />
-        <Dropdown
-          title={'Select Second Quarter Semifinalist'}
-          label={predictionSecondQuarterSemiFinalist}
-          options={secondQuarterOptions}
-          handleChange={handleChange}
-        />
-        <Dropdown
-          title={'Select Third Quarter Semifinalist'}
-          label={predictionThirdQuarterSemiFinalist}
-          options={thirdQuarterOptions}
-          handleChange={handleChange}
-        />
-        <Dropdown
-          title={'Select Fourth Quarter Semifinalist'}
-          label={predictionFourthQuarterSemiFinalist}
-          options={fourthQuarterOptions}
-          handleChange={handleChange}
-        />
+      <div className={styles.container}>
+        <div className={styles.children}>
+          <h4>Semifinals</h4>
+          <Dropdown
+            title={'Select First Quarter Semifinalist'}
+            label={predictionFirstQuarterSemiFinalist}
+            options={firstQuarterOptions}
+            handleChange={handleChange}
+          />
+          <Dropdown
+            title={'Select Second Quarter Semifinalist'}
+            label={predictionSecondQuarterSemiFinalist}
+            options={secondQuarterOptions}
+            handleChange={handleChange}
+          />
+          <Dropdown
+            title={'Select Third Quarter Semifinalist'}
+            label={predictionThirdQuarterSemiFinalist}
+            options={thirdQuarterOptions}
+            handleChange={handleChange}
+          />
+          <Dropdown
+            title={'Select Fourth Quarter Semifinalist'}
+            label={predictionFourthQuarterSemiFinalist}
+            options={fourthQuarterOptions}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className={styles.children}>
+          <h4>Final</h4>
+          <Dropdown
+            title={'Select Top Half Finalist'}
+            label={predictionTopHalfFinalist}
+            options={topHalfFinalist}
+            handleChange={handleChange}
+          />
+          <Dropdown
+            title={'Select Bottom Half Finalist'}
+            label={predictionBottomHalfFinalist}
+            options={bottomHalfFinalist}
+            handleChange={handleChange}
+          />
+        </div>
+        <div className={styles.children}>
+          <h4>Winner</h4>
+          <Dropdown
+            title={'Select Winner'}
+            label={predictionWinner}
+            options={winner}
+            handleChange={handleChange}
+          />
+        </div>
       </div>
-      <h4>Final</h4>
-      <div>
-        <Dropdown
-          title={'Select Top Half Finalist'}
-          label={predictionTopHalfFinalist}
-          options={topHalfFinalist}
-          handleChange={handleChange}
+      <button
+        className={styles.submitButton}
+        onClick={(e) => {
+          e.preventDefault()
+          console.log(
+            'predictionFirstQuarterSemiFinalist ',
+            predictionFirstQuarterSemiFinalist,
+          )
+          if (
+            prediction[predictionFirstQuarterSemiFinalist] &&
+            prediction[predictionSecondQuarterSemiFinalist] &&
+            prediction[predictionThirdQuarterSemiFinalist] &&
+            prediction[predictionFourthQuarterSemiFinalist] &&
+            prediction[predictionTopHalfFinalist] &&
+            prediction[predictionBottomHalfFinalist] &&
+            prediction[predictionWinner]
+          ) {
+            console.log('the prediction has been submitted')
+            // send the submission to the backend and send the user to the bracket page
+          } else {
+            console.log('Please fill out all fields')
+            // display the error message, if any
+          }
+        }}
+      >
+        <img
+          src={TennisBallIcon}
+          alt="Tennis Ball Icon"
+          className={styles.icon}
         />
-        <Dropdown
-          title={'Select Bottom Half Finalist'}
-          label={predictionBottomHalfFinalist}
-          options={bottomHalfFinalist}
-          handleChange={handleChange}
-        />
-      </div>
-      <h4>Winner</h4>
-      <div>
-        <Dropdown
-          title={'Select Winner'}
-          label={predictionWinner}
-          options={winner}
-          handleChange={handleChange}
-        />
-      </div>
+        Make your Prediction
+      </button>
     </div>
   )
 }
