@@ -1,15 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+
 import LandingPage from './components/LandingPage/LandingPage'
 import Dashboard from './components/Dashboard/Dashboard'
+import Bracket from './components/Bracket/Bracket'
 
 import logo from './images/AO.png'
 
 const App = () => {
   return (
     <React.StrictMode>
-      <LandingPage />
-      <Dashboard tournaments={tournamentsMockedData} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route
+            path="/dashboard"
+            element={<Dashboard tournaments={tournamentsMockedData} />}
+          />
+          <Route path="/bracket/:year/:tournament" element={<Bracket />} />
+        </Routes>
+      </BrowserRouter>
     </React.StrictMode>
   )
 }
