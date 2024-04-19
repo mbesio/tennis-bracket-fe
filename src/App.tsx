@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import LandingPage from './components/LandingPage/LandingPage'
 import Dashboard from './components/Dashboard/Dashboard'
+import Prediction from './components/Prediction/Prediction'
 import Bracket from './components/Bracket/Bracket'
 
 import logo from './images/AO.png'
@@ -17,6 +18,10 @@ const App = () => {
           <Route
             path="/dashboard"
             element={<Dashboard tournaments={tournamentsMockedData} />}
+          />
+          <Route
+            path="/prediction/:year/:tournament"
+            element={<Prediction />}
           />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
         </Routes>
