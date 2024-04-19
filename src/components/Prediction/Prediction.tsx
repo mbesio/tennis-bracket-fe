@@ -9,6 +9,7 @@ import {
   predictionTopHalfFinalist,
   predictionBottomHalfFinalist,
   predictionWinner,
+  SERVER_DOMAIN,
 } from '../../constants/constants'
 
 import styles from './styles.module.css'
@@ -111,13 +112,11 @@ const Prediction = () => {
             ),
           thirdQuarterOptions.find(
             (selection) =>
-              selection.value ===
-              updatedState[predictionThirdQuarterSemiFinalist],
+              selection.value === updatedState[predictionBottomHalfFinalist],
           ) ||
             fourthQuarterOptions.find(
               (selection) =>
-                selection.value ===
-                updatedState[predictionFourthQuarterSemiFinalist],
+                selection.value === updatedState[predictionBottomHalfFinalist],
             ),
         ])
       } else {
@@ -186,7 +185,7 @@ const Prediction = () => {
       </div>
       <button
         className={styles.submitButton}
-        onClick={(e) => {
+        onClick={async (e) => {
           e.preventDefault()
           console.log(
             'predictionFirstQuarterSemiFinalist ',
@@ -203,6 +202,31 @@ const Prediction = () => {
           ) {
             console.log('the prediction has been submitted')
             // send the submission to the backend and send the user to the bracket page
+
+            const predictionSubmission = {
+              ...prediction,
+              userId: '110467087751500234185', // TO DO get the user id from the context
+            }
+            // this I will extract from the url
+            const id = '4edbeb00-8b5a-42a7-a1e2-e692523341df'
+            const year = '2024'
+
+            const response = await fetch(
+              `${SERVER_DOMAIN}/prediction/tournament/${id}/${year}`,
+              {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(predictionSubmission),
+              },
+            )
+            if (response.ok) {
+              console.log('Submission successful')
+              // send the user to the bracket page
+            } else {
+              console.log('Submission failed')
+            }
           } else {
             console.log('Please fill out all fields')
             // display the error message, if any
