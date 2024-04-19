@@ -1,26 +1,28 @@
 import React from 'react'
+import Select from 'react-select'
 
 const Dropdown = ({ title, label, options, handleChange }) => {
-  // console.log('title ', title)
-  // console.log('options ', options)
+  const transformedOptions = options.map((option) => ({
+    value: option.value,
+    label: !option.seed
+      ? `${option.value}`
+      : `(${option.seed}) ${option.value}`,
+  }))
+
+  const handleSelectChange = (selectedOption) => {
+    handleChange(
+      { target: { value: selectedOption ? selectedOption.value : '' } },
+      label,
+    )
+  }
   return (
-    <select
-      onChange={(event) => handleChange(event, label)}
-      disabled={options.length < 2}
-    >
-      <option value="">{title}</option>
-      {options.map((option) => (
-        <option
-          key={option.value}
-          value={option.value}
-          label={
-            !option.seed
-              ? `${option.value}`
-              : `(${option.seed}) ${option.value}`
-          }
-        ></option>
-      ))}
-    </select>
+    <Select
+      options={transformedOptions}
+      isSearchable
+      onChange={handleSelectChange}
+      isDisabled={options.length < 2}
+      placeholder={title}
+    />
   )
 }
 
