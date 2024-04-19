@@ -5,7 +5,14 @@ import Dashboard from './components/Dashboard/Dashboard'
 
 import logo from './images/AO.png'
 
-const App = () => <div>"Hello World"</div>
+const App = () => {
+  return (
+    <React.StrictMode>
+      <LandingPage />
+      <Dashboard tournaments={tournamentsMockedData} />
+    </React.StrictMode>
+  )
+}
 // mockdata
 const tournamentsMockedData = [
   {
@@ -46,10 +53,4 @@ const tournamentsMockedData = [
 ]
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
-root.render(
-  <React.StrictMode>
-    {/* <App /> */}
-    {/* <LandingPage /> */}
-    <Dashboard tournaments={tournamentsMockedData} />
-  </React.StrictMode>,
-)
+root.render(<App />)
