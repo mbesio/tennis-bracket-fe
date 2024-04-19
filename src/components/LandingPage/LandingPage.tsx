@@ -3,9 +3,11 @@ import styles from './styles.module.css'
 import logo from '../../images/tennisball.png'
 import GoogleButton from 'react-google-button'
 
+import { SERVER_DOMAIN } from '../../constants/constants'
+
 // You should see this page if you are not logged in
 const LandingPage = () => {
-  const GOOGLE_AUTH_URL = 'https://tennis-bracket-be.onrender.com/auth/google'
+  const GOOGLE_AUTH_URL = `${SERVER_DOMAIN}/auth/google`
   return (
     <div className={styles.container}>
       <h1>Tennis bracket challenge</h1>
