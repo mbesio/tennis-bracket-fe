@@ -13,3 +13,8 @@ export const predictionFourthQuarterSemiFinalist =
 export const predictionTopHalfFinalist = 'predictionTopHalfFinalist'
 export const predictionBottomHalfFinalist = 'predictionBottomHalfFinalist'
 export const predictionWinner = 'predictionWinner'
+
+export const playersFirstQuarter = 'playersFirstQuarter'
+export const playersSecondQuarter = 'playersSecondQuarter'
+export const playersThirdQuarter = 'playersThirdQuarter'
+export const playersFourthQuarter = 'playersFourthQuarter'

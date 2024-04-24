@@ -6,9 +6,10 @@ import LandingPage from './components/LandingPage/LandingPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import Prediction from './components/Prediction/Prediction'
 import Bracket from './components/Bracket/Bracket'
-import Admin from './components/Admin/Admin'
-
+import AdminDashboard from './components/Admin/AdminDashboard'
 import logo from './images/AO.png'
+import AdminAddPlayers from './components/Admin/AdminAddPlayers'
+import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 
 const App = () => {
   return (
@@ -25,7 +26,15 @@ const App = () => {
             element={<Prediction />}
           />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route
+            path="/admin/tournament/:id/quarter/:quarter/add-players"
+            element={<AdminAddPlayers />}
+          />
+          <Route
+            path="/admin/tournament/:id/quarter"
+            element={<AdminSelectQuarter />}
+          />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
