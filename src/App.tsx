@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage/LandingPage'
 import Dashboard from './components/Dashboard/Dashboard'
 import Prediction from './components/Prediction/Prediction'
 import Bracket from './components/Bracket/Bracket'
+import Admin from './components/Admin/Admin'
 
 import logo from './images/AO.png'
 
@@ -24,6 +25,7 @@ const App = () => {
             element={<Prediction />}
           />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
+          <Route path="/admin" element={<Admin />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
@@ -34,7 +36,7 @@ const tournamentsMockedData = [
   {
     id: 1,
     year: 2024,
-    logo: logo,
+    logo: 'https://storage.cloud.google.com/tennis-logos/IW.png',
     name: 'Australian Open',
     status: 'Completed',
   },
