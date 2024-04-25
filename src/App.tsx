@@ -17,14 +17,8 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route
-            path="/dashboard"
-            element={<Dashboard tournaments={tournamentsMockedData} />}
-          />
-          <Route
-            path="/prediction/:year/:tournament"
-            element={<Prediction />}
-          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/prediction/:id" element={<Prediction />} />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route

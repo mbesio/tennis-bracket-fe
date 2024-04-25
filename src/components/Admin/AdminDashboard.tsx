@@ -17,7 +17,6 @@ const AdminDashboard = () => {
     const getTournamentYears = async () => {
       const response = await fetch(`${SERVER_DOMAIN}/admin/tournaments/year`)
       const data = await response.json()
-      console.log('data', data)
       setTournamentYears(data.data)
     }
     getTournamentYears()

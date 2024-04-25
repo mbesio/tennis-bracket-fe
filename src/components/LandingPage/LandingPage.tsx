@@ -18,8 +18,11 @@ const LandingPage = () => {
         alt="Bracket challenge tennis ball"
       />
       <GoogleButton
-        onClick={() => {
+        onClick={async () => {
           window.location.href = GOOGLE_AUTH_URL
+          // const response = await fetch(GOOGLE_AUTH_URL)
+          // const data = await response.json()
+          // console.log(data)
         }}
       />
     </div>

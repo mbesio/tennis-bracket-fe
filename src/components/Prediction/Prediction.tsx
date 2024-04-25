@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import TennisBallIcon from '../../images/tennisball.png' // adjust the path as needed
+import React, { useEffect, useState } from 'react'
+import TennisBallIcon from '../../images/tennisball.png'
 import Dropdown from './Dropdown'
 import {
   predictionFirstQuarterSemiFinalist,
@@ -12,31 +12,16 @@ import {
   SERVER_DOMAIN,
 } from '../../constants/constants'
 
+import { useParams } from 'react-router-dom'
+
 import styles from './styles.module.css'
 
-// Add a use effect to call these from the backend
-const firstQuarterOptions = [
-  { value: 'Matteo Berrettini', seed: 1 },
-  { value: 'Sasha Zverev', seed: 2 },
-]
-
-// Add a use effect to call these from the backend
-const secondQuarterOptions = [
-  { value: 'Alex De Minaur', seed: null },
-  { value: 'Ben Shelton', seed: 15 },
-]
-
-const thirdQuarterOptions = [
-  { value: 'Andy Murray', seed: null },
-  { value: 'Stan Wawrinka', seed: null },
-]
-const fourthQuarterOptions = [
-  { value: 'Rafa Nadal', seed: 17 },
-  { value: 'Roger Federer', seed: 3 },
-]
-
-// You should see this page only if you are not logged in
 const Prediction = () => {
+  const [firstQuarterOptions, setFirstQuarterOptions] = useState([])
+  const [secondQuarterOptions, setSecondQuarterOptions] = useState([])
+  const [thirdQuarterOptions, setThirdQuarterOptions] = useState([])
+  const [fourthQuarterOptions, setFourthQuarterOptions] = useState([])
+
   const [prediction, setPrediction] = useState({
     [predictionFirstQuarterSemiFinalist]: '',
     [predictionSecondQuarterSemiFinalist]: '',
@@ -46,6 +31,38 @@ const Prediction = () => {
     [predictionBottomHalfFinalist]: '',
     [predictionWinner]: '',
   })
+
+  const { id } = useParams()
+
+  useEffect(() => {
+    const getTournamentPlayers = async () => {
+      const response = await fetch(`${SERVER_DOMAIN}/tournament/players/${id}`)
+      const data = await response.json()
+
+      setFirstQuarterOptions(
+        data.data.playersFirstQuarter
+          .map((player) => JSON.parse(player))
+          .map((player) => ({ value: player.name, seed: player.seed })),
+      )
+      setSecondQuarterOptions(
+        data.data.playersSecondQuarter
+          .map((player) => JSON.parse(player))
+          .map((player) => ({ value: player.name, seed: player.seed })),
+      )
+      setThirdQuarterOptions(
+        data.data.playersThirdQuarter
+          .map((player) => JSON.parse(player))
+          .map((player) => ({ value: player.name, seed: player.seed })),
+      )
+      setFourthQuarterOptions(
+        data.data.playersFourthQuarter
+          .map((player) => JSON.parse(player))
+          .map((player) => ({ value: player.name, seed: player.seed })),
+      )
+    }
+    getTournamentPlayers()
+  }, [])
+
   const [topHalfFinalist, setTopHalfFinalist] = useState([])
   const [bottomHalfFinalist, setBottomHalfFinalist] = useState([])
   const [winner, setWinner] = useState([])
@@ -207,12 +224,9 @@ const Prediction = () => {
               ...prediction,
               userId: '110467087751500234185', // TO DO get the user id from the context
             }
-            // this I will extract from the url
-            const id = '4edbeb00-8b5a-42a7-a1e2-e692523341df'
-            const year = '2024'
 
             const response = await fetch(
-              `${SERVER_DOMAIN}/prediction/tournament/${id}/${year}`,
+              `${SERVER_DOMAIN}/prediction/tournament/${id}`,
               {
                 method: 'POST',
                 headers: {
