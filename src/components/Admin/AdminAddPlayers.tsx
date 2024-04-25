@@ -23,7 +23,7 @@ const AdminAddPlayers = () => {
   const { quarter, id } = useParams()
   const [availablePlayers, setAvailablePlayers] = useState([])
   const [availableSeeds, setAvailableSeeds] = useState([
-    { value: null, label: 'None' },
+    { value: null, label: null },
     ...Array.from({ length: 32 }, (_, i) => ({
       value: i + 1,
       label: `${i + 1}`,
@@ -47,7 +47,7 @@ const AdminAddPlayers = () => {
     const newSelectedPlayers = [...selectedPlayers]
     setSelectedPlayers([
       ...newSelectedPlayers,
-      { name: currentPlayer.value, seed: currentSeed.value },
+      { name: currentPlayer.value, seed: currentSeed?.value || null },
     ])
 
     const remainingPlayers = availablePlayers.filter(
@@ -55,10 +55,12 @@ const AdminAddPlayers = () => {
     )
     setAvailablePlayers(remainingPlayers)
 
-    const remainingSeeds = availableSeeds.filter(
-      (seed) => seed.value !== currentSeed.value,
-    )
-    setAvailableSeeds(remainingSeeds)
+    if (currentSeed) {
+      const remainingSeeds = availableSeeds.filter(
+        (seed) => seed.value !== currentSeed.value,
+      )
+      setAvailableSeeds(remainingSeeds)
+    }
 
     setCurrentPlayer(null)
     setCurrentSeed(null)
@@ -67,14 +69,14 @@ const AdminAddPlayers = () => {
   useEffect(() => {
     const fetchPlayers = async () => {
       // TO DO - Uncommnent once dev is complete
-      // const response = await fetch(`${SERVER_DOMAIN}/admin/players`)
-      // const data = await response.json()
-      // const players = data.data
-      const players = [
-        { Name: 'N. Djokovic' },
-        { Name: 'D. Medvedev' },
-        { Name: 'H. Hurkacz' },
-      ]
+      const response = await fetch(`${SERVER_DOMAIN}/admin/players`)
+      const data = await response.json()
+      const players = data.data
+      // const players = [
+      //   { Name: 'N. Djokovic' },
+      //   { Name: 'D. Medvedev' },
+      //   { Name: 'H. Hurkacz' },
+      // ]
 
       const playerOptions = players.map((player) => ({
         value: player['Name'],
@@ -98,7 +100,7 @@ const AdminAddPlayers = () => {
             />
 
             <Select
-              placeholder={selectedPlayer.seed}
+              placeholder={selectedPlayer.seed || 'None'}
               styles={{ container: (provided) => ({ ...provided, flex: 1 }) }}
               isDisabled={true}
             />
