@@ -10,7 +10,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     const getUserTournaments = async () => {
-      const tournaments = await fetch(`${SERVER_DOMAIN}/tournaments`)
+      const tournaments = await fetch(`${SERVER_DOMAIN}/tournaments`, {
+        credentials: 'include',
+      })
       const data = await tournaments.json()
       setTournaments(data.data)
     }

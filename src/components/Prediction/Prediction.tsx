@@ -36,7 +36,12 @@ const Prediction = () => {
 
   useEffect(() => {
     const getTournamentPlayers = async () => {
-      const response = await fetch(`${SERVER_DOMAIN}/tournament/players/${id}`)
+      const response = await fetch(
+        `${SERVER_DOMAIN}/tournament/players/${id}`,
+        {
+          credentials: 'include',
+        },
+      )
       const data = await response.json()
 
       setFirstQuarterOptions(
@@ -222,12 +227,12 @@ const Prediction = () => {
 
             const predictionSubmission = {
               ...prediction,
-              userId: '110467087751500234185', // TO DO get the user id from the context
             }
 
             const response = await fetch(
               `${SERVER_DOMAIN}/prediction/tournament/${id}`,
               {
+                credentials: 'include',
                 method: 'POST',
                 headers: {
                   'Content-Type': 'application/json',
