@@ -19,7 +19,7 @@ const Tournament = ({
     let path = `/prediction/${id}`
     navigate(path)
   }
-  const gotoViewPrecition = () => {
+  const gotoViewPrecitionAndResult = () => {
     let path = `/prediction/result/${id}`
     navigate(path)
   }
@@ -45,8 +45,11 @@ const Tournament = ({
             if (!hasPrediction) {
               gotoMakePrecition()
             } else {
-              gotoViewPrecition()
+              gotoViewPrecitionAndResult()
             }
+          }
+          if (status === STATUSES.completed || status === STATUSES.inProgress) {
+            gotoViewPrecitionAndResult()
           }
         }}
         disabled={status === STATUSES.nonStartedNoDraw}
