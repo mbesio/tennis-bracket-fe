@@ -81,22 +81,34 @@ const ShowPredictionResult = () => {
       console.log('results xxx', resultData)
       if (resultData.data) {
         setResults({
-          [semifinalistFirstQuarter]: JSON.parse(
-            resultData.data.semifinalistFirstQuarter,
-          ).name,
-          [semifinalistSecondQuarter]: JSON.parse(
-            resultData.data.semifinalistSecondQuarter,
-          ).name,
-          [semifinalistThirdQuarter]: JSON.parse(
-            resultData.data.semifinalistThirdQuarter,
-          ).name,
-          [semifinalistFourthQuarter]: JSON.parse(
-            resultData.data.semifinalistFourthQuarter,
-          ).name,
-          [finalistTopHalf]: JSON.parse(resultData.data.finalistTopHalf).name,
-          [finalistBottomHalf]: JSON.parse(resultData.data.finalistBottomHalf)
-            .name,
-          [winner]: JSON.parse(resultData.data.winner).name,
+          [semifinalistFirstQuarter]:
+            JSON.parse(resultData.data.semifinalistFirstQuarter) === null
+              ? ''
+              : JSON.parse(resultData.data.semifinalistFirstQuarter).name,
+          [semifinalistSecondQuarter]:
+            JSON.parse(resultData.data.semifinalistSecondQuarter) === null
+              ? ''
+              : JSON.parse(resultData.data.semifinalistSecondQuarter).name,
+          [semifinalistThirdQuarter]:
+            JSON.parse(resultData.data.semifinalistThirdQuarter) === null
+              ? ''
+              : JSON.parse(resultData.data.semifinalistThirdQuarter).name,
+          [semifinalistFourthQuarter]:
+            JSON.parse(resultData.data.semifinalistFourthQuarter) === null
+              ? ''
+              : JSON.parse(resultData.data.semifinalistFourthQuarter).name,
+          [finalistTopHalf]:
+            JSON.parse(resultData.data.finalistTopHalf) === null
+              ? ''
+              : JSON.parse(resultData.data.finalistTopHalf).name,
+          [finalistBottomHalf]:
+            JSON.parse(resultData.data.finalistBottomHalf) === null
+              ? ''
+              : JSON.parse(resultData.data.finalistBottomHalf).name,
+          [winner]:
+            JSON.parse(resultData.data.winner) === null
+              ? ''
+              : JSON.parse(resultData.data.winner).name,
         })
       }
     }
