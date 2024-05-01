@@ -24,11 +24,8 @@ const mockUserObject = {
  * @param user
  * @returns boolean - true if user has prediction for the tournament, false otherwise
  */
-export const hasUserPrediction = (tournamentId, year, user) =>
-  !!mockUserObject.user.predictions.find(
-    (prediction) =>
-      prediction.tournamentId === tournamentId && prediction.year === year,
-  )
+export const hasUserPrediction = (prediction) =>
+  prediction === undefined ? false : true
 
 // const test = hasUserPrediction(2, 2024, 'user from context')
 // console.log('test', test)

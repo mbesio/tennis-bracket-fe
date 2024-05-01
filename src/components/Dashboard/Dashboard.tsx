@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import Tournament from './Tournament'
 import { SERVER_DOMAIN } from '../../constants/constants'
-import { convertToObject } from 'typescript'
 
 // You should see this page only if you are not logged in
 const Dashboard = () => {
   const currentYear = 2024 // This should be dynamic and come from the backend
   const [tournaments, setTournaments] = useState([])
+  const [userPredictions, setUserPredictions] = useState([])
 
   useEffect(() => {
     const getUserTournaments = async () => {
@@ -14,9 +14,20 @@ const Dashboard = () => {
         credentials: 'include',
       })
       const data = await tournaments.json()
+      console.log('these should be the tournaments: ', data)
       setTournaments(data.data)
     }
     getUserTournaments()
+
+    const getUserPredictions = async () => {
+      const tournaments = await fetch(`${SERVER_DOMAIN}/predictions`, {
+        credentials: 'include',
+      })
+      const data = await tournaments.json()
+      console.log('these shoudl be the user predictions: ', data)
+      setUserPredictions(data.data)
+    }
+    getUserPredictions()
   }, [])
 
   return (
@@ -30,6 +41,9 @@ const Dashboard = () => {
           name={tournament.name}
           status={tournament.status}
           startDate={tournament.startDate}
+          prediction={userPredictions.find(
+            (prediction) => prediction.tournamentYearId === tournament.id,
+          )}
         />
       ))}
     </div>

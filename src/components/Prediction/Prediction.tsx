@@ -12,11 +12,13 @@ import {
   SERVER_DOMAIN,
 } from '../../constants/constants'
 
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import styles from './styles.module.css'
 
 const Prediction = () => {
+  const navigate = useNavigate()
+
   const [firstQuarterOptions, setFirstQuarterOptions] = useState([])
   const [secondQuarterOptions, setSecondQuarterOptions] = useState([])
   const [thirdQuarterOptions, setThirdQuarterOptions] = useState([])
@@ -242,6 +244,7 @@ const Prediction = () => {
             )
             if (response.ok) {
               console.log('Submission successful')
+              navigate(`/prediction/result/${id}`)
               // send the user to the bracket page
             } else {
               console.log('Submission failed')

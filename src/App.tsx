@@ -10,6 +10,7 @@ import AdminDashboard from './components/Admin/AdminDashboard'
 import logo from './images/AO.png'
 import AdminAddPlayers from './components/Admin/AdminAddPlayers'
 import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
+import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
 
 const App = () => {
   return (
@@ -19,6 +20,10 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/prediction/:id" element={<Prediction />} />
+          <Route
+            path="/prediction/result/:id"
+            element={<ShowPredictionResult />}
+          />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route

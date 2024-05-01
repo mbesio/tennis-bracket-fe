@@ -4,15 +4,27 @@ import { STATUSES, getText } from '../../helpers/status'
 import { hasUserPrediction } from '../../helpers/user'
 import { useNavigate } from 'react-router-dom'
 
-const Tournament = ({ id, year, logo, name, status, startDate }) => {
+const Tournament = ({
+  id,
+  year,
+  logo,
+  name,
+  status,
+  startDate,
+  prediction,
+}) => {
   const navigate = useNavigate()
 
-  const routeChange = () => {
+  const gotoMakePrecition = () => {
     let path = `/prediction/${id}`
     navigate(path)
   }
+  const gotoViewPrecition = () => {
+    let path = `/prediction/result/${id}`
+    navigate(path)
+  }
   // NEED TO CHECK IF THE USER HAS ALREADY MADE A PREDICTION FOR THIS TOURNAMENT
-  const hasPrediction = hasUserPrediction(id, year, 'user from context')
+  const hasPrediction = hasUserPrediction(prediction)
   const text = getText(status, hasPrediction)
   // Create a new Date object from the ISO date string
   const date = new Date(startDate)
@@ -30,7 +42,11 @@ const Tournament = ({ id, year, logo, name, status, startDate }) => {
         className={styles.name}
         onClick={() => {
           if (status === STATUSES.nonStartedDrawOut) {
-            routeChange()
+            if (!hasPrediction) {
+              gotoMakePrecition()
+            } else {
+              gotoViewPrecition()
+            }
           }
         }}
         disabled={status === STATUSES.nonStartedNoDraw}
