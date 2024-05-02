@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
@@ -13,35 +13,37 @@ import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
 import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes'
 import AdminRoutes from './components/PrivateRoutes/AdminRoutes'
+import UserContextProvider from './context/UserContext'
 
 const App = () => {
   return (
     <React.StrictMode>
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route element={<PrivateRoutes />}>
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/prediction/:id" element={<Prediction />} />
-            <Route
-              path="/prediction/result/:id"
-              element={<ShowPredictionResult />}
-            />
-          </Route>
-          <Route path="/bracket/:year/:tournament" element={<Bracket />} />
-
-          <Route element={<AdminRoutes />}>
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route
-              path="/admin/tournament/:id/quarter/:quarter/add-players"
-              element={<AdminAddPlayers />}
-            />
-            <Route
-              path="/admin/tournament/:id/quarter"
-              element={<AdminSelectQuarter />}
-            />
-          </Route>
-        </Routes>
+        <UserContextProvider>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route element={<PrivateRoutes />}>
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/prediction/:id" element={<Prediction />} />
+              <Route
+                path="/prediction/result/:id"
+                element={<ShowPredictionResult />}
+              />
+            </Route>
+            <Route path="/bracket/:year/:tournament" element={<Bracket />} />
+            <Route element={<AdminRoutes />}>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route
+                path="/admin/tournament/:id/quarter/:quarter/add-players"
+                element={<AdminAddPlayers />}
+              />
+              <Route
+                path="/admin/tournament/:id/quarter"
+                element={<AdminSelectQuarter />}
+              />
+            </Route>
+          </Routes>
+        </UserContextProvider>
       </BrowserRouter>
     </React.StrictMode>
   )
