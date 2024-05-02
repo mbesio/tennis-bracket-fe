@@ -45,7 +45,6 @@ const ShowPredictionResult = () => {
   const { id } = useParams()
 
   useEffect(() => {
-    console.log('hi there from the use Effect')
     const getUserPrediction = async () => {
       const response = await fetch(
         `${SERVER_DOMAIN}/prediction/tournament/${id}`,
@@ -54,7 +53,6 @@ const ShowPredictionResult = () => {
         },
       )
       const data = await response.json()
-      console.log('data.data', data.data)
       if (data.data) {
         setPrediction({
           [predictionFirstQuarterSemiFinalist]:
@@ -78,7 +76,6 @@ const ShowPredictionResult = () => {
         credentials: 'include',
       })
       const resultData = await response.json()
-      console.log('results xxx', resultData)
       if (resultData.data) {
         setResults({
           [semifinalistFirstQuarter]:

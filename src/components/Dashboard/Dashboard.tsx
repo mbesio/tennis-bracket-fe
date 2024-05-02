@@ -14,7 +14,6 @@ const Dashboard = () => {
         credentials: 'include',
       })
       const data = await tournaments.json()
-      console.log('these should be the tournaments: ', data)
       setTournaments(data.data)
     }
     getUserTournaments()
@@ -24,7 +23,6 @@ const Dashboard = () => {
         credentials: 'include',
       })
       const data = await tournaments.json()
-      console.log('these shoudl be the user predictions: ', data)
       setUserPredictions(data.data)
     }
     getUserPredictions()

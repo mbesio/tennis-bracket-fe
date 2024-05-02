@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 
 import LandingPage from './components/LandingPage/LandingPage'
 import Dashboard from './components/Dashboard/Dashboard'
@@ -11,8 +11,11 @@ import logo from './images/AO.png'
 import AdminAddPlayers from './components/Admin/AdminAddPlayers'
 import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
+import useAuth from './hooks/useAuth'
 
 const App = () => {
+  const isAdmin = useAuth()
+
   return (
     <React.StrictMode>
       <BrowserRouter>
@@ -25,15 +28,21 @@ const App = () => {
             element={<ShowPredictionResult />}
           />
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
-          <Route path="/admin" element={<AdminDashboard />} />
-          <Route
-            path="/admin/tournament/:id/quarter/:quarter/add-players"
-            element={<AdminAddPlayers />}
-          />
-          <Route
-            path="/admin/tournament/:id/quarter"
-            element={<AdminSelectQuarter />}
-          />
+          {isAdmin ? (
+            <>
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route
+                path="/admin/tournament/:id/quarter/:quarter/add-players"
+                element={<AdminAddPlayers />}
+              />
+              <Route
+                path="/admin/tournament/:id/quarter"
+                element={<AdminSelectQuarter />}
+              />
+            </>
+          ) : (
+            <Route path="/" element={<LandingPage />} />
+          )}
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

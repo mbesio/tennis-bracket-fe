@@ -26,6 +26,3 @@ const mockUserObject = {
  */
 export const hasUserPrediction = (prediction) =>
   prediction === undefined ? false : true
-
-// const test = hasUserPrediction(2, 2024, 'user from context')
-// console.log('test', test)

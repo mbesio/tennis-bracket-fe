@@ -211,10 +211,6 @@ const Prediction = () => {
         className={styles.submitButton}
         onClick={async (e) => {
           e.preventDefault()
-          console.log(
-            'predictionFirstQuarterSemiFinalist ',
-            predictionFirstQuarterSemiFinalist,
-          )
           if (
             prediction[predictionFirstQuarterSemiFinalist] &&
             prediction[predictionSecondQuarterSemiFinalist] &&
