@@ -11,38 +11,36 @@ import logo from './images/AO.png'
 import AdminAddPlayers from './components/Admin/AdminAddPlayers'
 import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
-import useAuth from './hooks/useAuth'
+import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes'
+import AdminRoutes from './components/PrivateRoutes/AdminRoutes'
 
 const App = () => {
-  const isAdmin = useAuth()
-
   return (
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/prediction/:id" element={<Prediction />} />
-          <Route
-            path="/prediction/result/:id"
-            element={<ShowPredictionResult />}
-          />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/prediction/:id" element={<Prediction />} />
+            <Route
+              path="/prediction/result/:id"
+              element={<ShowPredictionResult />}
+            />
+          </Route>
           <Route path="/bracket/:year/:tournament" element={<Bracket />} />
-          {isAdmin ? (
-            <>
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route
-                path="/admin/tournament/:id/quarter/:quarter/add-players"
-                element={<AdminAddPlayers />}
-              />
-              <Route
-                path="/admin/tournament/:id/quarter"
-                element={<AdminSelectQuarter />}
-              />
-            </>
-          ) : (
-            <Route path="/" element={<LandingPage />} />
-          )}
+
+          <Route element={<AdminRoutes />}>
+            <Route path="/admin" element={<AdminDashboard />} />
+            <Route
+              path="/admin/tournament/:id/quarter/:quarter/add-players"
+              element={<AdminAddPlayers />}
+            />
+            <Route
+              path="/admin/tournament/:id/quarter"
+              element={<AdminSelectQuarter />}
+            />
+          </Route>
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
