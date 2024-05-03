@@ -39,34 +39,41 @@ const Prediction = () => {
 
   useEffect(() => {
     const getTournamentPlayers = async () => {
-      const response = await fetch(
-        `${SERVER_DOMAIN}/tournament/players/${id}`,
-        {
-          credentials: 'include',
-        },
-      )
-      const data = await response.json()
+      try {
+        const response = await fetch(
+          `${SERVER_DOMAIN}/tournament/players/${id}`,
+          {
+            credentials: 'include',
+          },
+        )
+        if (!response.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await response.json()
 
-      setFirstQuarterOptions(
-        data.data.playersFirstQuarter
-          .map((player) => JSON.parse(player))
-          .map((player) => ({ value: player.name, seed: player.seed })),
-      )
-      setSecondQuarterOptions(
-        data.data.playersSecondQuarter
-          .map((player) => JSON.parse(player))
-          .map((player) => ({ value: player.name, seed: player.seed })),
-      )
-      setThirdQuarterOptions(
-        data.data.playersThirdQuarter
-          .map((player) => JSON.parse(player))
-          .map((player) => ({ value: player.name, seed: player.seed })),
-      )
-      setFourthQuarterOptions(
-        data.data.playersFourthQuarter
-          .map((player) => JSON.parse(player))
-          .map((player) => ({ value: player.name, seed: player.seed })),
-      )
+        setFirstQuarterOptions(
+          data.data.playersFirstQuarter
+            .map((player) => JSON.parse(player))
+            .map((player) => ({ value: player.name, seed: player.seed })),
+        )
+        setSecondQuarterOptions(
+          data.data.playersSecondQuarter
+            .map((player) => JSON.parse(player))
+            .map((player) => ({ value: player.name, seed: player.seed })),
+        )
+        setThirdQuarterOptions(
+          data.data.playersThirdQuarter
+            .map((player) => JSON.parse(player))
+            .map((player) => ({ value: player.name, seed: player.seed })),
+        )
+        setFourthQuarterOptions(
+          data.data.playersFourthQuarter
+            .map((player) => JSON.parse(player))
+            .map((player) => ({ value: player.name, seed: player.seed })),
+        )
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
+      }
     }
     getTournamentPlayers()
   }, [])

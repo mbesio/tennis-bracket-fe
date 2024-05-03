@@ -6,11 +6,18 @@ function useAuth() {
 
   useEffect(() => {
     const getme = async () => {
-      const response = await fetch(`${SERVER_DOMAIN}/auth/admin`, {
-        credentials: 'include',
-      })
-      const data = await response.json()
-      setAdmin(data.data)
+      try {
+        const response = await fetch(`${SERVER_DOMAIN}/auth/admin`, {
+          credentials: 'include',
+        })
+        if (!response.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await response.json()
+        setAdmin(data.data)
+      } catch {
+        console.error('There was a problem with the fetch operation')
+      }
     }
     getme()
   }, [])

@@ -15,9 +15,22 @@ const AdminDashboard = () => {
 
   useEffect(() => {
     const getTournamentYears = async () => {
-      const response = await fetch(`${SERVER_DOMAIN}/admin/tournaments/year`)
-      const data = await response.json()
-      setTournamentYears(data.data)
+      try {
+        const response = await fetch(
+          `${SERVER_DOMAIN}/admin/tournaments/year`,
+          {
+            credentials: 'include',
+          },
+        )
+
+        if (!response.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await response.json()
+        setTournamentYears(data.data)
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
+      }
     }
     getTournamentYears()
   }, [])

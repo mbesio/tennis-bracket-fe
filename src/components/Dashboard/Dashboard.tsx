@@ -12,38 +12,60 @@ const Dashboard = () => {
   const { user, setUser } = useContext(UserContext)
   const navigate = useNavigate()
 
-  const routeChange = (id) => {
+  const routeChange = (e) => {
+    e.stopPropagation()
     let path = `/admin`
     navigate(path)
   }
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`${SERVER_DOMAIN}/auth/me`, {
-        credentials: 'include',
-      })
-      const data = await response.json()
-      setUser(data.data)
+      try {
+        const response = await fetch(`${SERVER_DOMAIN}/auth/me`, {
+          credentials: 'include',
+        })
+        if (!response.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await response.json()
+        setUser(data.data)
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
+      }
     }
     getUser()
   }, [])
 
   useEffect(() => {
     const getUserTournaments = async () => {
-      const tournaments = await fetch(`${SERVER_DOMAIN}/tournaments`, {
-        credentials: 'include',
-      })
-      const data = await tournaments.json()
-      setTournaments(data.data)
+      try {
+        const tournaments = await fetch(`${SERVER_DOMAIN}/tournaments`, {
+          credentials: 'include',
+        })
+        if (!tournaments.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await tournaments.json()
+        setTournaments(data.data)
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
+      }
     }
     getUserTournaments()
 
     const getUserPredictions = async () => {
-      const tournaments = await fetch(`${SERVER_DOMAIN}/predictions`, {
-        credentials: 'include',
-      })
-      const data = await tournaments.json()
-      setUserPredictions(data.data)
+      try {
+        const tournaments = await fetch(`${SERVER_DOMAIN}/predictions`, {
+          credentials: 'include',
+        })
+        if (!tournaments.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await tournaments.json()
+        setUserPredictions(data.data)
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
+      }
     }
     getUserPredictions()
   }, [])
@@ -51,7 +73,9 @@ const Dashboard = () => {
   return (
     <div>
       {/* {console.log('user.isAdmin', user.isAdmin)} */}
-      {user.isAdmin && <button onClick={routeChange}>Go to Admin</button>}
+      {user.isAdmin && (
+        <button onClick={(e) => routeChange(e)}>Go to Admin</button>
+      )}
       <h1>{currentYear} tournaments</h1>
       {tournaments.map((tournament) => (
         <Tournament

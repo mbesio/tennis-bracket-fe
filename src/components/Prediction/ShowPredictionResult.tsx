@@ -45,28 +45,35 @@ const ShowPredictionResult = () => {
 
   useEffect(() => {
     const getUserPrediction = async () => {
-      const response = await fetch(
-        `${SERVER_DOMAIN}/prediction/tournament/${id}`,
-        {
-          credentials: 'include',
-        },
-      )
-      const data = await response.json()
-      if (data.data) {
-        setPrediction({
-          [predictionFirstQuarterSemiFinalist]:
-            data.data.predictionFirstQuarterSemiFinalist,
-          [predictionSecondQuarterSemiFinalist]:
-            data.data.predictionSecondQuarterSemiFinalist,
-          [predictionThirdQuarterSemiFinalist]:
-            data.data.predictionThirdQuarterSemiFinalist,
-          [predictionFourthQuarterSemiFinalist]:
-            data.data.predictionFourthQuarterSemiFinalist,
-          [predictionTopHalfFinalist]: data.data.predictionTopHalfFinalist,
-          [predictionBottomHalfFinalist]:
-            data.data.predictionBottomHalfFinalist,
-          [predictionWinner]: data.data.predictionWinner,
-        })
+      try {
+        const response = await fetch(
+          `${SERVER_DOMAIN}/prediction/tournament/${id}`,
+          {
+            credentials: 'include',
+          },
+        )
+        if (!response.ok) {
+          throw new Error('The response from the server was not ok')
+        }
+        const data = await response.json()
+        if (data.data) {
+          setPrediction({
+            [predictionFirstQuarterSemiFinalist]:
+              data.data.predictionFirstQuarterSemiFinalist,
+            [predictionSecondQuarterSemiFinalist]:
+              data.data.predictionSecondQuarterSemiFinalist,
+            [predictionThirdQuarterSemiFinalist]:
+              data.data.predictionThirdQuarterSemiFinalist,
+            [predictionFourthQuarterSemiFinalist]:
+              data.data.predictionFourthQuarterSemiFinalist,
+            [predictionTopHalfFinalist]: data.data.predictionTopHalfFinalist,
+            [predictionBottomHalfFinalist]:
+              data.data.predictionBottomHalfFinalist,
+            [predictionWinner]: data.data.predictionWinner,
+          })
+        }
+      } catch (error) {
+        console.error('There was a problem with the fetch operation', error)
       }
     }
 
