@@ -24,7 +24,6 @@ const Dashboard = () => {
       })
       const data = await response.json()
       setUser(data.data)
-      console.log('data in the useEffect ', data.data)
     }
     getUser()
   }, [])
@@ -56,6 +55,7 @@ const Dashboard = () => {
       <h1>{currentYear} tournaments</h1>
       {tournaments.map((tournament) => (
         <Tournament
+          key={tournament.id}
           id={tournament.id}
           year={tournament.year}
           logo={tournament.logo}
