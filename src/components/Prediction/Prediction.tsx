@@ -11,6 +11,7 @@ import {
   predictionWinner,
   SERVER_DOMAIN,
 } from '../../constants/constants'
+import BackToDashboardButton from './BackToDashboardButton'
 
 import { useParams, useNavigate } from 'react-router-dom'
 
@@ -258,6 +259,7 @@ const Prediction = () => {
         />
         Make your Prediction
       </button>
+      <BackToDashboardButton />
     </div>
   )
 }

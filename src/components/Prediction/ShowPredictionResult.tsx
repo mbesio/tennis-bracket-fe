@@ -16,10 +16,9 @@ import {
   finalistBottomHalf,
   winner,
 } from '../../constants/constants'
-
 import { useParams } from 'react-router-dom'
-
 import styles from './styles.module.css'
+import BackToDashboardButton from './BackToDashboardButton'
 
 const ShowPredictionResult = () => {
   const [prediction, setPrediction] = useState({
@@ -166,6 +165,7 @@ const ShowPredictionResult = () => {
           <div className={styles.box}>{results[winner]}</div>
         </div>
       </div>
+      <BackToDashboardButton />
     </div>
   )
 }
