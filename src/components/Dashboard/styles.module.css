@@ -5,6 +5,10 @@ body {
   margin: 0 auto;
 }
 
+.centered {
+  text-align: center;
+}
+
 .row {
   display: flex;
   align-items: center;

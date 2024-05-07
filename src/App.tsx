@@ -13,6 +13,7 @@ import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
 import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes'
 import AdminRoutes from './components/PrivateRoutes/AdminRoutes'
+import Header from './components/Header/Header'
 import UserContextProvider from './context/UserContext'
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
     <React.StrictMode>
       <BrowserRouter>
         <UserContextProvider>
+          <Header />
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route element={<PrivateRoutes />}>

@@ -2,21 +2,13 @@ import React, { useContext, useEffect, useState } from 'react'
 import Tournament from './Tournament'
 import { SERVER_DOMAIN } from '../../constants/constants'
 import { UserContext } from '../../context/UserContext'
-import { useNavigate } from 'react-router-dom'
+import styles from './styles.module.css'
 
-// You should see this page only if you are not logged in
 const Dashboard = () => {
   const currentYear = 2024 // This should be dynamic and come from the backend
   const [tournaments, setTournaments] = useState([])
   const [userPredictions, setUserPredictions] = useState([])
   const { user, setUser } = useContext(UserContext)
-  const navigate = useNavigate()
-
-  const routeChange = (e) => {
-    e.stopPropagation()
-    let path = `/admin`
-    navigate(path)
-  }
 
   useEffect(() => {
     const getUser = async () => {
@@ -72,11 +64,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      {/* {console.log('user.isAdmin', user.isAdmin)} */}
-      {user.isAdmin && (
-        <button onClick={(e) => routeChange(e)}>Go to Admin</button>
-      )}
-      <h1>{currentYear} tournaments</h1>
+      <h2 className={styles.centered}>{currentYear} tournaments</h2>
       {tournaments.map((tournament) => (
         <Tournament
           key={tournament.id}
