@@ -76,7 +76,6 @@ const Header = () => {
         ].join(' ')}
         onClick={() => {
           if (user && user.id.length > 0) {
-            console.log('user', user)
             setShowUserMenu(!showUserMenu)
           }
         }}

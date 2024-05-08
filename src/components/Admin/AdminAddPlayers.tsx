@@ -142,6 +142,7 @@ const AdminAddPlayers = () => {
             `${SERVER_DOMAIN}/admin/tournament/add-draw-players/${id}`,
             {
               method: 'POST',
+              credentials: 'include',
               headers: {
                 'Content-Type': 'application/json',
               },
