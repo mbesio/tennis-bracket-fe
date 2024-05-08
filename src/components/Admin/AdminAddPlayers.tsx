@@ -35,6 +35,8 @@ const AdminAddPlayers = () => {
   const [currentPlayer, setCurrentPlayer] = useState<PlayerOption>(null)
   const [currentSeed, setCurrentSeed] = useState<SeedOption>(null)
 
+  const [customText, setCustomText] = useState('')
+
   const handlePlayerChange = (selectedOption) => {
     setCurrentPlayer(selectedOption)
   }
@@ -45,15 +47,22 @@ const AdminAddPlayers = () => {
 
   const addPlayer = () => {
     const newSelectedPlayers = [...selectedPlayers]
-    setSelectedPlayers([
-      ...newSelectedPlayers,
-      { name: currentPlayer.value, seed: currentSeed?.value || null },
-    ])
+    if (customText !== '') {
+      setSelectedPlayers([
+        ...newSelectedPlayers,
+        { name: customText, seed: currentSeed?.value || null },
+      ])
+    } else {
+      setSelectedPlayers([
+        ...newSelectedPlayers,
+        { name: currentPlayer.value, seed: currentSeed?.value || null },
+      ])
 
-    const remainingPlayers = availablePlayers.filter(
-      (player) => player.value !== currentPlayer.value,
-    )
-    setAvailablePlayers(remainingPlayers)
+      const remainingPlayers = availablePlayers.filter(
+        (player) => player.value !== currentPlayer.value,
+      )
+      setAvailablePlayers(remainingPlayers)
+    }
 
     if (currentSeed) {
       const remainingSeeds = availableSeeds.filter(
@@ -61,9 +70,9 @@ const AdminAddPlayers = () => {
       )
       setAvailableSeeds(remainingSeeds)
     }
-
     setCurrentPlayer(null)
     setCurrentSeed(null)
+    setCustomText('')
   }
 
   useEffect(() => {
@@ -130,39 +139,52 @@ const AdminAddPlayers = () => {
         />
         <button onClick={addPlayer}>Add player </button>
       </div>
+      <span>
+        Enter a Player that is not in the list (you may still add a seed in the
+        previous row):{' '}
+      </span>
+      <input
+        className={styles.input}
+        type="text"
+        value={customText}
+        onChange={(e) => setCustomText(e.target.value)}
+        placeholder="Enter your own option"
+      />
       {/* ADD BUTTON TO SUBMIT TO THE BE */}
-      <button
-        className={styles.submitButton}
-        onClick={async (e) => {
-          e.preventDefault()
-          const predictionSubmission = {
-            [quarter]: selectedPlayers,
-          }
-          const response = await fetch(
-            `${SERVER_DOMAIN}/admin/tournament/add-draw-players/${id}`,
-            {
-              method: 'POST',
-              credentials: 'include',
-              headers: {
-                'Content-Type': 'application/json',
+      <div>
+        <button
+          className={styles.submitButton}
+          onClick={async (e) => {
+            e.preventDefault()
+            const predictionSubmission = {
+              [quarter]: selectedPlayers,
+            }
+            const response = await fetch(
+              `${SERVER_DOMAIN}/admin/tournament/add-draw-players/${id}`,
+              {
+                method: 'POST',
+                credentials: 'include',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(predictionSubmission),
               },
-              body: JSON.stringify(predictionSubmission),
-            },
-          )
-          if (response.ok) {
-            console.log('Submission successful')
-          } else {
-            console.log('Submission failed')
-          }
-        }}
-      >
-        <img
-          src={TennisBallIcon}
-          alt="Tennis Ball Icon"
-          className={styles.icon}
-        />
-        Submit Players
-      </button>
+            )
+            if (response.ok) {
+              console.log('Submission successful')
+            } else {
+              console.log('Submission failed')
+            }
+          }}
+        >
+          <img
+            src={TennisBallIcon}
+            alt="Tennis Ball Icon"
+            className={styles.icon}
+          />
+          Submit Players
+        </button>
+      </div>
     </div>
   )
 }
