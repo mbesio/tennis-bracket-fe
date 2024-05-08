@@ -10,7 +10,7 @@ const LandingPage = () => {
   const GOOGLE_AUTH_URL = `${SERVER_DOMAIN}/auth/google`
   return (
     <div className={styles.container}>
-      <h1>Tennis bracket challenge</h1>
+      <h1>Tennis predictions</h1>
       <div>Guess the winners of Slams and Masters 1000 tournaments</div>
       <img
         className={styles.logo}

@@ -23,7 +23,11 @@ const Header = () => {
   }, [user])
 
   const backToDashBoard = () => {
-    navigate('/')
+    if (user.id.length > 0) {
+      navigate('/dashboard')
+    } else {
+      navigate('/')
+    }
   }
 
   const goToAdmin = (e) => {
