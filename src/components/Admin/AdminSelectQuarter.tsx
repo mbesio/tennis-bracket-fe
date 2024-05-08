@@ -13,12 +13,16 @@ const AdminSelectQuarter = () => {
   const navigate = useNavigate()
   const { id } = useParams()
 
-  const handleClick = (quarter) => {
+  const handleClickAddPlayers = (quarter) => {
     let path = `/admin/tournament/${id}/quarter/${quarter}/add-players`
     navigate(path)
-
-    // your code here
   }
+
+  const handleClickAddResults = () => {
+    let path = `/admin/tournament/${id}/add-results`
+    navigate(path)
+  }
+
   const quarters = [
     playersFirstQuarter,
     playersSecondQuarter,
@@ -27,12 +31,24 @@ const AdminSelectQuarter = () => {
   ]
   return (
     <div>
-      Select Quarter Page
-      {quarters.map((quarter, index) => (
-        <button key={index} id={quarter} onClick={() => handleClick(quarter)}>
-          {quarter}
+      <div>
+        Add players based on tournament draw:
+        {quarters.map((quarter, index) => (
+          <button
+            key={index}
+            id={quarter}
+            onClick={() => handleClickAddPlayers(quarter)}
+          >
+            {quarter}
+          </button>
+        ))}
+      </div>
+      <div>
+        Add tournament results:
+        <button id={'add-results'} onClick={() => handleClickAddResults()}>
+          Add Results
         </button>
-      ))}
+      </div>
     </div>
   )
 }

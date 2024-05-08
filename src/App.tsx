@@ -9,6 +9,7 @@ import Bracket from './components/Bracket/Bracket'
 import AdminDashboard from './components/Admin/AdminDashboard'
 import logo from './images/AO.png'
 import AdminAddPlayers from './components/Admin/AdminAddPlayers'
+import AdminAddResults from './components/Admin/AdminAddResults'
 import AdminSelectQuarter from './components/Admin/AdminSelectQuarter'
 import ShowPredictionResult from './components/Prediction/ShowPredictionResult'
 import PrivateRoutes from './components/PrivateRoutes/PrivateRoutes'
@@ -35,6 +36,10 @@ const App = () => {
             <Route path="/bracket/:year/:tournament" element={<Bracket />} />
             <Route element={<AdminRoutes />}>
               <Route path="/admin" element={<AdminDashboard />} />
+              <Route
+                path="/admin/tournament/:id/add-results"
+                element={<AdminAddResults />}
+              />
               <Route
                 path="/admin/tournament/:id/quarter/:quarter/add-players"
                 element={<AdminAddPlayers />}
