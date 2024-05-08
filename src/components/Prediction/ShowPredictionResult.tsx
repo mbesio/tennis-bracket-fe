@@ -41,6 +41,9 @@ const ShowPredictionResult = () => {
     [winner]: '',
   })
 
+  const [tournamentName, setTournamentName] = useState('')
+  const [tournamentYear, setTournamentYear] = useState('')
+
   const { id } = useParams()
 
   useEffect(() => {
@@ -83,6 +86,9 @@ const ShowPredictionResult = () => {
       })
       const resultData = await response.json()
       if (resultData.data) {
+        setTournamentName(resultData.data.name)
+        setTournamentYear(resultData.data.year)
+
         setResults({
           [semifinalistFirstQuarter]:
             JSON.parse(resultData.data.semifinalistFirstQuarter) === null
@@ -122,6 +128,9 @@ const ShowPredictionResult = () => {
 
   return (
     <div>
+      <h3>
+        Prediction and results for the {tournamentYear} {tournamentName}
+      </h3>
       <h3>Your Prediction</h3>
       <div className={styles.container}>
         <div className={styles.children}>

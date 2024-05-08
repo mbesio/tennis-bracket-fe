@@ -19,6 +19,8 @@ import styles from './styles.module.css'
 
 const Prediction = () => {
   const navigate = useNavigate()
+  const [tournamentName, setTournamentName] = useState('')
+  const [tournamentYear, setTournamentYear] = useState('')
 
   const [firstQuarterOptions, setFirstQuarterOptions] = useState([])
   const [secondQuarterOptions, setSecondQuarterOptions] = useState([])
@@ -50,6 +52,10 @@ const Prediction = () => {
           throw new Error('The response from the server was not ok')
         }
         const data = await response.json()
+        console.log('data coming back', data)
+
+        setTournamentName(data.data.name)
+        setTournamentYear(data.data.year)
 
         setFirstQuarterOptions(
           data.data.playersFirstQuarter
@@ -161,7 +167,9 @@ const Prediction = () => {
 
   return (
     <div>
-      <h3>This will be the Prediciton component</h3>
+      <h3>
+        Make your prediction for the {tournamentYear} {tournamentName}
+      </h3>
       <div className={styles.container}>
         <div className={styles.children}>
           <h4>Semifinals</h4>
