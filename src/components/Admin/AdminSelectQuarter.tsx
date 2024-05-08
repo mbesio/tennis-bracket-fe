@@ -7,6 +7,7 @@ import {
   playersSecondQuarter,
   playersThirdQuarter,
   playersFourthQuarter,
+  SERVER_DOMAIN,
 } from '../../constants/constants'
 
 const AdminSelectQuarter = () => {
@@ -21,6 +22,42 @@ const AdminSelectQuarter = () => {
   const handleClickAddResults = () => {
     let path = `/admin/tournament/${id}/add-results`
     navigate(path)
+  }
+
+  const handleClickDrawIsAvailable = async () => {
+    const response = await fetch(
+      `${SERVER_DOMAIN}/admin/tournament/draw-is-open/${id}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    if (response.ok) {
+      console.log('Submission successful')
+    } else {
+      console.log('Submission failed')
+    }
+  }
+
+  const handleClickPredictionIsClosed = async () => {
+    const response = await fetch(
+      `${SERVER_DOMAIN}/admin/tournament/prediction-is-closed/${id}`,
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      },
+    )
+    if (response.ok) {
+      console.log('Submission successful')
+    } else {
+      console.log('Submission failed')
+    }
   }
 
   const quarters = [
@@ -47,6 +84,21 @@ const AdminSelectQuarter = () => {
         Add tournament results:
         <button id={'add-results'} onClick={() => handleClickAddResults()}>
           Add Results
+        </button>
+      </div>
+      <div>
+        Open/Close prediction:
+        <button
+          id={'draw-is-available'}
+          onClick={() => handleClickDrawIsAvailable()}
+        >
+          Draw is available
+        </button>
+        <button
+          id={'prediction-is-closed'}
+          onClick={() => handleClickPredictionIsClosed()}
+        >
+          Prediction is closed
         </button>
       </div>
     </div>
