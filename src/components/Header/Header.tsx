@@ -74,14 +74,23 @@ const Header = () => {
           styles.headerButton,
           styles.ovalBorder,
         ].join(' ')}
-        onClick={() => setShowUserMenu(!showUserMenu)}
+        onClick={() => {
+          if (user && user.id.length > 0) {
+            console.log('user', user)
+            setShowUserMenu(!showUserMenu)
+          }
+        }}
       >
         <img src={LIST_ICON_PATH} alt="List" className={styles.logoList} />
         <img src={userLogo} alt="User" className={styles.logo} />
       </button>
       {showUserMenu && (
         <div className={styles.cardContainer}>
-          <Card onLogout={onLogout} onGoToAdmin={(e) => goToAdmin(e)} />
+          <Card
+            onLogout={onLogout}
+            onGoToAdmin={(e) => goToAdmin(e)}
+            user={user}
+          />
         </div>
       )}
     </header>
