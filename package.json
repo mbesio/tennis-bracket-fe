@@ -1,7 +1,6 @@
 {
   "name": "tennis-bracket-fe",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel serve src/index.html --port 3000",
     "format": "prettier --write \"src/**/*.(ts, tsx)\"",
