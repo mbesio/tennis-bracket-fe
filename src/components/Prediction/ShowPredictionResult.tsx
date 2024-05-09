@@ -19,6 +19,7 @@ import {
 import { useParams } from 'react-router-dom'
 import styles from './styles.module.css'
 import BackToDashboardButton from './BackToDashboardButton'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 const ShowPredictionResult = () => {
   const [prediction, setPrediction] = useState({
@@ -43,6 +44,7 @@ const ShowPredictionResult = () => {
 
   const [tournamentName, setTournamentName] = useState('')
   const [tournamentYear, setTournamentYear] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const { id } = useParams()
 
@@ -81,6 +83,7 @@ const ShowPredictionResult = () => {
     }
 
     const getResults = async () => {
+      setIsLoading(true)
       const response = await fetch(`${SERVER_DOMAIN}/result/tournament/${id}`, {
         credentials: 'include',
       })
@@ -120,6 +123,7 @@ const ShowPredictionResult = () => {
               : JSON.parse(resultData.data.winner).name,
         })
       }
+      setIsLoading(false)
     }
 
     getResults()
@@ -128,60 +132,74 @@ const ShowPredictionResult = () => {
 
   return (
     <div>
-      <h3>
-        Prediction and results for the {tournamentYear} {tournamentName}
-      </h3>
-      <h3>Your Prediction</h3>
-      <div className={styles.container}>
-        <div className={styles.children}>
-          <h4>Semifinals</h4>
-          <div className={styles.box}>
-            {prediction[predictionFirstQuarterSemiFinalist]}
+      {isLoading ? (
+        <LoadingSpinner isLoading={isLoading} />
+      ) : (
+        <div>
+          <h3>
+            Prediction and results for the {tournamentYear} {tournamentName}
+          </h3>
+          <h3>Your Prediction</h3>
+          <div className={styles.container}>
+            <div className={styles.children}>
+              <h4>Semifinals</h4>
+              <div className={styles.box}>
+                {prediction[predictionFirstQuarterSemiFinalist]}
+              </div>
+              <div className={styles.box}>
+                {prediction[predictionSecondQuarterSemiFinalist]}
+              </div>
+              <div className={styles.box}>
+                {prediction[predictionThirdQuarterSemiFinalist]}
+              </div>
+              <div className={styles.box}>
+                {prediction[predictionFourthQuarterSemiFinalist]}
+              </div>
+            </div>
+            <div className={styles.children}>
+              <h4>Final</h4>
+              <div className={styles.box}>
+                {prediction[predictionTopHalfFinalist]}
+              </div>
+              <div className={styles.box}>
+                {prediction[predictionBottomHalfFinalist]}
+              </div>
+            </div>
+            <div className={styles.children}>
+              <h4>Winner</h4>
+              <div className={styles.box}>{prediction[predictionWinner]}</div>
+            </div>
           </div>
-          <div className={styles.box}>
-            {prediction[predictionSecondQuarterSemiFinalist]}
+          <h3>Tournament Results</h3>
+          <div className={styles.container}>
+            <div className={styles.children}>
+              <h4>Semifinals</h4>
+              <div className={styles.box}>
+                {results[semifinalistFirstQuarter]}
+              </div>
+              <div className={styles.box}>
+                {results[semifinalistSecondQuarter]}
+              </div>
+              <div className={styles.box}>
+                {results[semifinalistThirdQuarter]}
+              </div>
+              <div className={styles.box}>
+                {results[semifinalistFourthQuarter]}
+              </div>
+            </div>
+            <div className={styles.children}>
+              <h4>Final</h4>
+              <div className={styles.box}>{results[finalistTopHalf]}</div>
+              <div className={styles.box}>{results[finalistBottomHalf]}</div>
+            </div>
+            <div className={styles.children}>
+              <h4>Winner</h4>
+              <div className={styles.box}>{results[winner]}</div>
+            </div>
           </div>
-          <div className={styles.box}>
-            {prediction[predictionThirdQuarterSemiFinalist]}
-          </div>
-          <div className={styles.box}>
-            {prediction[predictionFourthQuarterSemiFinalist]}
-          </div>
+          <BackToDashboardButton />
         </div>
-        <div className={styles.children}>
-          <h4>Final</h4>
-          <div className={styles.box}>
-            {prediction[predictionTopHalfFinalist]}
-          </div>
-          <div className={styles.box}>
-            {prediction[predictionBottomHalfFinalist]}
-          </div>
-        </div>
-        <div className={styles.children}>
-          <h4>Winner</h4>
-          <div className={styles.box}>{prediction[predictionWinner]}</div>
-        </div>
-      </div>
-      <h3>Tournament Results</h3>
-      <div className={styles.container}>
-        <div className={styles.children}>
-          <h4>Semifinals</h4>
-          <div className={styles.box}>{results[semifinalistFirstQuarter]}</div>
-          <div className={styles.box}>{results[semifinalistSecondQuarter]}</div>
-          <div className={styles.box}>{results[semifinalistThirdQuarter]}</div>
-          <div className={styles.box}>{results[semifinalistFourthQuarter]}</div>
-        </div>
-        <div className={styles.children}>
-          <h4>Final</h4>
-          <div className={styles.box}>{results[finalistTopHalf]}</div>
-          <div className={styles.box}>{results[finalistBottomHalf]}</div>
-        </div>
-        <div className={styles.children}>
-          <h4>Winner</h4>
-          <div className={styles.box}>{results[winner]}</div>
-        </div>
-      </div>
-      <BackToDashboardButton />
+      )}
     </div>
   )
 }

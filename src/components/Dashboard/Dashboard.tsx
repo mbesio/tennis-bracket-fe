@@ -3,12 +3,14 @@ import Tournament from './Tournament'
 import { SERVER_DOMAIN } from '../../constants/constants'
 import { UserContext } from '../../context/UserContext'
 import styles from './styles.module.css'
+import LoadingSpinner from '../LoadingSpinner/LoadingSpinner'
 
 const Dashboard = () => {
   const currentYear = 2024 // This should be dynamic and come from the backend
   const [tournaments, setTournaments] = useState([])
   const [userPredictions, setUserPredictions] = useState([])
   const { user, setUser } = useContext(UserContext)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getUser = async () => {
@@ -31,6 +33,7 @@ const Dashboard = () => {
   useEffect(() => {
     const getUserTournaments = async () => {
       try {
+        setIsLoading(true)
         const tournaments = await fetch(`${SERVER_DOMAIN}/tournaments`, {
           credentials: 'include',
         })
@@ -42,6 +45,7 @@ const Dashboard = () => {
       } catch (error) {
         console.error('There was a problem with the fetch operation', error)
       }
+      setIsLoading(false)
     }
     getUserTournaments()
 
@@ -65,20 +69,26 @@ const Dashboard = () => {
   return (
     <div>
       <h2 className={styles.centered}>{currentYear} tournaments</h2>
-      {tournaments.map((tournament) => (
-        <Tournament
-          key={tournament.id}
-          id={tournament.id}
-          year={tournament.year}
-          logo={tournament.logo}
-          name={tournament.name}
-          status={tournament.status}
-          startDate={tournament.startDate}
-          prediction={userPredictions.find(
-            (prediction) => prediction.tournamentYearId === tournament.id,
-          )}
-        />
-      ))}
+      {isLoading ? (
+        <LoadingSpinner isLoading={isLoading} />
+      ) : (
+        <div>
+          {tournaments.map((tournament) => (
+            <Tournament
+              key={tournament.id}
+              id={tournament.id}
+              year={tournament.year}
+              logo={tournament.logo}
+              name={tournament.name}
+              status={tournament.status}
+              startDate={tournament.startDate}
+              prediction={userPredictions.find(
+                (prediction) => prediction.tournamentYearId === tournament.id,
+              )}
+            />
+          ))}
+        </div>
+      )}
     </div>
   )
 }
