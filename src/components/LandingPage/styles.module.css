@@ -13,6 +13,13 @@ body {
   text-align: center;
 }
 
+/* Reduce font size on mobile screens */
+@media screen and (max-width: 600px) {
+  .container h1 {
+    font-size: 2em; /* adjust as needed */
+  }
+}
+
 h1 {
   margin: 0;
   font-size: 6em;
