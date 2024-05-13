@@ -130,6 +130,47 @@ const ShowPredictionResult = () => {
     getUserPrediction()
   }, [])
 
+  const getIcon = (result, prediction) => {
+    console.log('result', result)
+    console.log('prediction', prediction)
+    if (prediction === '') {
+      return '〰️'
+    }
+    if (result === null) {
+      return '⏳'
+    }
+    if (result === prediction) {
+      return '✅'
+    }
+    return '❌'
+  }
+
+  const semifinalistFirstQuarterIcon = getIcon(
+    results[semifinalistFirstQuarter],
+    prediction[predictionFirstQuarterSemiFinalist],
+  )
+  const semifinalistSecondQuarterIcon = getIcon(
+    results[semifinalistSecondQuarter],
+    prediction[predictionSecondQuarterSemiFinalist],
+  )
+  const semifinalistThirdQuarterIcon = getIcon(
+    results[semifinalistThirdQuarter],
+    prediction[predictionThirdQuarterSemiFinalist],
+  )
+  const semifinalistFourthQuarterIcon = getIcon(
+    results[semifinalistFourthQuarter],
+    prediction[predictionFourthQuarterSemiFinalist],
+  )
+  const finalistTopHalfIcon = getIcon(
+    results[finalistTopHalf],
+    prediction[predictionTopHalfFinalist],
+  )
+  const finalistBottomHalfIcon = getIcon(
+    results[finalistBottomHalf],
+    prediction[predictionBottomHalfFinalist],
+  )
+  const winnerIcon = getIcon(results[winner], prediction[predictionWinner])
+
   return (
     <div>
       {isLoading ? (
@@ -144,30 +185,32 @@ const ShowPredictionResult = () => {
             <div className={styles.children}>
               <h4>Semifinals</h4>
               <div className={styles.box}>
-                {prediction[predictionFirstQuarterSemiFinalist]}
+                {`${prediction[predictionFirstQuarterSemiFinalist]} ${semifinalistFirstQuarterIcon}`}
               </div>
               <div className={styles.box}>
-                {prediction[predictionSecondQuarterSemiFinalist]}
+                {`${prediction[predictionSecondQuarterSemiFinalist]} ${semifinalistSecondQuarterIcon}`}
               </div>
               <div className={styles.box}>
-                {prediction[predictionThirdQuarterSemiFinalist]}
+                {`${prediction[predictionThirdQuarterSemiFinalist]} ${semifinalistThirdQuarterIcon}`}
               </div>
               <div className={styles.box}>
-                {prediction[predictionFourthQuarterSemiFinalist]}
+                {`${prediction[predictionFourthQuarterSemiFinalist]} ${semifinalistFourthQuarterIcon}`}
               </div>
             </div>
             <div className={styles.children}>
               <h4>Final</h4>
               <div className={styles.box}>
-                {prediction[predictionTopHalfFinalist]}
+                {`${prediction[predictionTopHalfFinalist]} ${finalistTopHalfIcon}`}
               </div>
               <div className={styles.box}>
-                {prediction[predictionBottomHalfFinalist]}
+                {`${prediction[predictionBottomHalfFinalist]} ${finalistBottomHalfIcon}`}
               </div>
             </div>
             <div className={styles.children}>
               <h4>Winner</h4>
-              <div className={styles.box}>{prediction[predictionWinner]}</div>
+              <div
+                className={styles.box}
+              >{`${prediction[predictionWinner]} ${winnerIcon}`}</div>
             </div>
           </div>
           <h3>Tournament Results</h3>
