@@ -1,6 +1,6 @@
 # Let's predict tennis - tennis predictions 
 
-> An app to predict the winners of ATP Major and Masters tournaments
+> An app to predict the winners of ATP Major and Masters professional tennis tournaments
 
 > See site [here](https://letspredicttennis.com/)
 
