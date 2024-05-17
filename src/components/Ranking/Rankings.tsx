@@ -37,9 +37,12 @@ const Rankings = () => {
         }
         const data = await response.json()
 
-        setUserDetails(data?.data?.userDetails ?? {})
-        setOverallRanking(data?.data?.overallRanking ?? [])
-        setTotalPages(data?.data?.totalPages ?? 1)
+        console.log('data ', data)
+        console.log('data?.data?.overallRanking ', data?.data?.overallRanking)
+
+        setUserDetails(data.data.userDetails)
+        setOverallRanking(data.data.overallRanking)
+        setTotalPages(data.data.totalPages)
       } catch (error) {
         console.error('There was a problem with the fetch operation', error)
       }
