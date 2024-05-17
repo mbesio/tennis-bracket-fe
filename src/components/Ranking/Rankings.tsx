@@ -47,11 +47,10 @@ const Rankings = () => {
 
         // console.log('data.data.overallRanking ', data.data.overallRanking)
 
-        const minRanking = data?.data?.overallRanking[0]?.rank ?? 0
+        const minRanking = data.data.overallRanking[0].rank
         const maxRanking =
-          data?.data?.overallRanking[data?.data?.overallRanking?.length - 1]
-            ?.rank ?? 0
-        const userRanking = data?.data?.userDetails?.rank ?? 0
+          data.data.overallRanking[data.data.overallRanking.length - 1].rank
+        const userRanking = data.data.userDetails.rank
 
         setIsUserRankLowerThanMinRank(userRanking < minRanking)
         setIsUserRankLargerThanMaxRank(userRanking > maxRanking)
