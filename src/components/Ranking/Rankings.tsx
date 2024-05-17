@@ -19,10 +19,6 @@ const Rankings = () => {
   const [userDetails, setUserDetails] = useState({} as UserDetails)
   const [totalPages, setTotalPages] = useState(0)
   const [isLoading, setIsLoading] = useState(false)
-  const [isUserRankLowerThanMinRank, setIsUserRankLowerThanMinRank] =
-    useState(false)
-  const [isUserRankLargerThanMaxRank, setIsUserRankLargerThanMaxRank] =
-    useState(false)
 
   useEffect(() => {
     const getRankings = async () => {
@@ -44,16 +40,6 @@ const Rankings = () => {
         setUserDetails(data?.data?.userDetails ?? {})
         setOverallRanking(data?.data?.overallRanking ?? [])
         setTotalPages(data?.data?.totalPages ?? 1)
-
-        // console.log('data.data.overallRanking ', data.data.overallRanking)
-
-        const minRanking = data.data.overallRanking[0].rank
-        const maxRanking =
-          data.data.overallRanking[data.data.overallRanking.length - 1].rank
-        const userRanking = data.data.userDetails.rank
-
-        setIsUserRankLowerThanMinRank(userRanking < minRanking)
-        setIsUserRankLargerThanMaxRank(userRanking > maxRanking)
       } catch (error) {
         console.error('There was a problem with the fetch operation', error)
       }
@@ -72,7 +58,21 @@ const Rankings = () => {
         <LoadingSpinner isLoading={isLoading} />
       ) : (
         <div>
-          <h2>Rankings</h2>
+          <h2 style={{ textAlign: 'center' }}>Rankings</h2>
+          <div className={styles.rightAlignContainer}>
+            <div className={styles.leftAlignContent && styles.boldUnderlined}>
+              Your scores
+            </div>
+            <div className={styles.leftAlignContent}>
+              Ranking: {userDetails.rank}
+            </div>
+            <div className={styles.leftAlignContent}>
+              Score: {userDetails.totalScore}
+            </div>
+            <div className={styles.leftAlignContent}>
+              Predictions: {userDetails.numberOfPredictions}
+            </div>
+          </div>
           <table className={styles.table}>
             <thead>
               <tr>
@@ -84,21 +84,6 @@ const Rankings = () => {
               </tr>
             </thead>
             <tbody>
-              {isUserRankLowerThanMinRank && (
-                <tr key={userDetails.rank}>
-                  <td>{userDetails.rank}</td>
-                  <td>
-                    <img
-                      src={userDetails.user.photo}
-                      alt={userDetails.user.displayName}
-                      className={styles.avatar}
-                    />
-                  </td>
-                  <td>{userDetails.user.displayName}</td>
-                  <td>{userDetails.totalScore}</td>
-                  <td>{userDetails.numberOfPredictions}</td>
-                </tr>
-              )}
               {overallRanking.map((player) => (
                 <tr
                   key={player.rank}
@@ -119,21 +104,6 @@ const Rankings = () => {
                   <td>{player.numberOfPredictions}</td>
                 </tr>
               ))}
-              {isUserRankLargerThanMaxRank && (
-                <tr key={userDetails.rank}>
-                  <td>{userDetails.rank}</td>
-                  <td>
-                    <img
-                      src={userDetails.user.photo}
-                      alt={userDetails.user.displayName}
-                      className={styles.avatar}
-                    />
-                  </td>
-                  <td>{userDetails.user.displayName}</td>
-                  <td>{userDetails.totalScore}</td>
-                  <td>{userDetails.numberOfPredictions}</td>
-                </tr>
-              )}
             </tbody>
           </table>
           <div className={styles.paginationContainer}>

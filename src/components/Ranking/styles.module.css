@@ -84,3 +84,16 @@
   cursor: pointer;
   background-color: #ddd;
 }
+
+.rightAlignContainer {
+  float: right;
+}
+
+.leftAlignContent {
+  text-align: left;
+}
+
+.boldUnderlined {
+  text-decoration: underline;
+  font-weight: bold;
+}
