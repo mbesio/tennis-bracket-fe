@@ -40,17 +40,18 @@ const Rankings = () => {
           throw new Error('The response from the server was not ok')
         }
         const data = await response.json()
-        const userDetails = data.data.userDetails
-        const overallRanking = data.data.overallRanking
-        const totalPages = data.data.totalPages
 
-        setUserDetails(userDetails)
-        setOverallRanking(overallRanking)
-        setTotalPages(totalPages)
+        setUserDetails(data?.data?.userDetails ?? {})
+        setOverallRanking(data?.data?.overallRanking ?? [])
+        setTotalPages(data?.data?.totalPages ?? 1)
 
-        const minRanking = overallRanking[0].rank
-        const maxRanking = overallRanking[overallRanking.length - 1].rank
-        const userRanking = userDetails.rank
+        // console.log('data.data.overallRanking ', data.data.overallRanking)
+
+        const minRanking = data?.data?.overallRanking[0]?.rank ?? 0
+        const maxRanking =
+          data?.data?.overallRanking[data?.data?.overallRanking?.length - 1]
+            ?.rank ?? 0
+        const userRanking = data?.data?.userDetails?.rank ?? 0
 
         setIsUserRankLowerThanMinRank(userRanking < minRanking)
         setIsUserRankLargerThanMaxRank(userRanking > maxRanking)
