@@ -55,7 +55,6 @@ const Prediction = () => {
           throw new Error('The response from the server was not ok')
         }
         const data = await response.json()
-        console.log('data coming back', data)
 
         setTournamentName(data.data.name)
         setTournamentYear(data.data.year)

@@ -31,10 +31,17 @@ const Header = () => {
   }
 
   const goToAdmin = (e) => {
-    e.stopPropagation()
     navigate('/admin')
     setShowUserMenu(!showUserMenu)
     // setUserLogo(PROFILE_ICON_PATH)
+  }
+
+  const goToRanking = () => {
+    navigate('/rankings')
+  }
+
+  const onGoToTournaments = () => {
+    navigate('/dashboard')
   }
 
   const onLogout = async () => {
@@ -91,7 +98,9 @@ const Header = () => {
         <div className={styles.cardContainer}>
           <Card
             onLogout={onLogout}
-            onGoToAdmin={(e) => goToAdmin(e)}
+            onGoToAdmin={goToAdmin}
+            onGoToTournaments={onGoToTournaments}
+            onGoToRanking={goToRanking}
             user={user}
           />
         </div>

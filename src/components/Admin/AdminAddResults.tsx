@@ -71,7 +71,6 @@ const AdminAddResults = () => {
                 seed: null,
               }
             }
-            console.log(' this is the submission object: ', submission)
 
             const response = await fetch(
               `${SERVER_DOMAIN}/admin/tournament/add-results/${id}`,

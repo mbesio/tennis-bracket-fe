@@ -17,6 +17,7 @@ import AdminRoutes from './components/PrivateRoutes/AdminRoutes'
 import Header from './components/Header/Header'
 import UserContextProvider from './context/UserContext'
 import Test from './components/Test/Test'
+import Rankings from './components/Ranking/Rankings'
 
 const App = () => {
   return (
@@ -29,6 +30,7 @@ const App = () => {
             <Route path="/test" element={<Test />} />
             <Route element={<PrivateRoutes />}>
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/rankings" element={<Rankings />} />
               <Route path="/prediction/:id" element={<Prediction />} />
               <Route
                 path="/prediction/result/:id"

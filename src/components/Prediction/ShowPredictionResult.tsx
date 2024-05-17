@@ -131,8 +131,6 @@ const ShowPredictionResult = () => {
   }, [])
 
   const getIcon = (result, prediction) => {
-    console.log('result', result)
-    console.log('prediction', prediction)
     if (prediction === '') {
       return '〰️'
     }
@@ -177,9 +175,9 @@ const ShowPredictionResult = () => {
         <LoadingSpinner isLoading={isLoading} />
       ) : (
         <div>
-          <h3>
+          <h2>
             Prediction and results for the {tournamentYear} {tournamentName}
-          </h3>
+          </h2>
           <h3>Your Prediction</h3>
           <div className={styles.container}>
             <div className={styles.children}>

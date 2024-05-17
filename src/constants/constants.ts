@@ -1,6 +1,6 @@
-// export const SERVER_DOMAIN = '/api' // FOR PRODUCTION
+export const SERVER_DOMAIN = '/api' // FOR PRODUCTION
 
-export const SERVER_DOMAIN = 'http://localhost:3001/api'
+// export const SERVER_DOMAIN = 'http://localhost:3001/api'
 
 export const predictionFirstQuarterSemiFinalist =
   'predictionFirstQuarterSemiFinalist'
