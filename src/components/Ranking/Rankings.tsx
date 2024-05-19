@@ -37,12 +37,9 @@ const Rankings = () => {
         }
         const data = await response.json()
 
-        console.log('data ', data)
-        console.log('data?.data?.overallRanking ', data?.data?.overallRanking)
-
-        setUserDetails(data.data.userDetails)
-        setOverallRanking(data.data.overallRanking)
-        setTotalPages(data.data.totalPages)
+        setUserDetails(data.data.userDetails || {})
+        setOverallRanking(data.data.overallRanking || [])
+        setTotalPages(data.data.totalPages || 1)
       } catch (error) {
         console.error('There was a problem with the fetch operation', error)
       }
@@ -67,13 +64,13 @@ const Rankings = () => {
               Your scores
             </div>
             <div className={styles.leftAlignContent}>
-              Ranking: {userDetails.rank}
+              Ranking: {userDetails.rank || 'N/A'}
             </div>
             <div className={styles.leftAlignContent}>
-              Score: {userDetails.totalScore}
+              Score: {userDetails.totalScore || 'N/A'}
             </div>
             <div className={styles.leftAlignContent}>
-              Predictions: {userDetails.numberOfPredictions}
+              Predictions: {userDetails.numberOfPredictions || 'N/A'}
             </div>
           </div>
           <table className={styles.table}>
