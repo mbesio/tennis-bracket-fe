@@ -134,9 +134,10 @@ const ShowPredictionResult = () => {
     if (prediction === '') {
       return '〰️'
     }
-    if (result === null) {
+    if (result === null || result === '') {
       return '⏳'
     }
+
     if (result === prediction) {
       return '✅'
     }
